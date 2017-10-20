@@ -28,4 +28,16 @@ export class MovieService {
       }, 2000);
     });
   }
+
+  public search($term){
+    const foundMovies = this.movies.filter((movie: Movie) => {
+      return movie.name.toLowerCase().includes($term.toLowerCase());
+    });
+
+    if (foundMovies.length === 0) {
+      return Observable.throw($term);
+    }
+
+    return Observable.of(foundMovies);
+  }
 }

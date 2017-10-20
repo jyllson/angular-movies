@@ -6,20 +6,20 @@ import { FormsModule } from '@angular/forms';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SharedModule } from './shared/shared.module';
 import { MoviesComponent } from './components/movies/movies.component';
-import { SearchComponent } from './search/search/search.component';
+import { SearchModule } from './search/search.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
-    MoviesComponent,
-    SearchComponent
+    MoviesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    SearchModule
   ],
   providers: [],
   bootstrap: [AppComponent]
