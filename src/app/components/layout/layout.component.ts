@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SearchComponent } from '../../search/search/search.component';
 
 @Component({
   selector: 'app-layout',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
+
+	private search: string;
 
   constructor() { }
 
