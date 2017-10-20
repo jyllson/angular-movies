@@ -6,12 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { LayoutComponent } from './components/layout/layout.component';
 import { SharedModule } from './shared/shared.module';
 import { MoviesComponent } from './components/movies/movies.component';
+import { SearchComponent } from './search/search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
-    MoviesComponent
+    MoviesComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
