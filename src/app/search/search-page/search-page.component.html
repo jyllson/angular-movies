@@ -1,3 +1,15 @@
-<p>
-  search-page works!
-</p>
+<br>
+<div class="container">
+	<h4>Search results: {{ term }}</h4>
+	<h4>Selected movies: {{ selectedMovies }}</h4>
+	<br>
+	<ul class="list-group">
+		<li
+			*ngFor="let movie of movies" 
+			[movieRow]="movie" 
+			(onSelect)="selectMovie($event)" 
+			(onDeselect)="deselectMovie($event)"
+			class="list-group-item">
+		</li>
+	</ul>
+</div>

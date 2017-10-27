@@ -1,43 +1,49 @@
 import { Injectable } from '@angular/core';
-import { MovieList } from './examples';
+import { HttpClient } from '@angular/common/http';
+
 import { Observable, Observer } from 'rxjs';
 import { Movie } from './models/movie.model';
 
 @Injectable()
 export class MovieService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   private movies: Array<Movie>;
 
   public getMovies(){
-  	this.movies = MovieList.map(
-  		movie => new Movie(
-  			movie.id, 
-  			movie.name, 
-  			movie.director,
-  			movie.imageUrl,
-  			movie.duration,
-  			movie.releaseDate,
-  			movie.genres
-  		)
-  	);
     return new Observable((o: Observer<any>) => {
-      setTimeout(() => {
-        o.next(this.movies);
-      }, 2000);
+      this.http.get('http://localhost:8000/api/movies')
+        .subscribe(
+          (movies: any[]) => {
+            movies.forEach(mov => {
+              this.movies.push(new Movie(mov.id, mov.name, mov.director, mov.image_url, mov.duration, mov.release_date, mov.genres));
+            });
+
+            o.next(this.movies);
+            return o.complete();
+          });
     });
   }
 
-  public search($term){
-    const foundMovies = this.movies.filter((movie: Movie) => {
-      return movie.name.toLowerCase().includes($term.toLowerCase());
-    });
+  public search(term){
+    return new Observable(
+      (foundMovies: Observer<any>) => {
+        let m = [];
 
-    if (foundMovies.length === 0) {
-      return Observable.throw($term);
-    }
+        this.movies.map((movie: Movie) => {
+          if (!(movie['name'].toLowerCase().search(term.toLowerCase()) == -1)) {
+            m.push(movie);
+          }
+        })
 
-    return Observable.of(foundMovies);
+        if (m.length == 0) {
+          foundMovies.error('No movies found.');
+          console.log('No movies');
+        } else {
+          foundMovies.next(m);          
+        }
+      }
+    );
   }
 }

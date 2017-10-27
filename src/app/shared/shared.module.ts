@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpModule } from "@angular/http";
+
 import { MovieService } from './movie.service';
 import { MovieRowComponent } from './movie-row/movie-row.component';
 
